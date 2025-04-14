@@ -1,33 +1,19 @@
 <?php
-require_once 'BaseModel.php';
 
-class Hospedaje extends BaseModel {
+require_once __DIR__ . '/BaseModel.php';
 
-    public function buscarPorPrefijoNombre($prefijo) {
-        $sql = "
-            SELECT 
-                h.id,
-                h.name,
-                h.type,
-                h.description,
-                c.name AS city,
-                p.Provincia AS province,
-                ht.stars,
-                rt.name AS room_type,
-                a.total_apartments,
-                a.max_adults
-            FROM hospedaje h
-            JOIN city c ON h.city_id = c.id
-            JOIN province p ON c.province_id = p.id
-            LEFT JOIN hotel ht ON h.id = ht.hospedaje_id
-            LEFT JOIN room_type rt ON ht.room_type_id = rt.id
-            LEFT JOIN apartment a ON h.id = a.hospedaje_id
-            WHERE h.name LIKE :prefijo
-            ORDER BY h.name ASC
-        ";
+class Hospedaje extends BaseModel
+{
+    private $table_name = "hospedaje";
 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':prefijo' => $prefijo . '%']);
+    public function findHospedajesByPrefix($prefix)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE name LIKE ?";
+        $stmt = $this->db->prepare($query);
+        $prefix = $prefix . '%';
+        $stmt->bindParam(1, $prefix);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
+?>

@@ -1,20 +1,21 @@
 <?php
-class Database {
-    private $host = 'localhost';
-    private $db_name = 'destinia';
-    private $username = 'root';
-    private $password = 'root';
-    public $conn;
 
-    public function getConnection() {
-        $this->conn = null;
-        try {
-            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db_name;charset=utf8mb4", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $exception) {
-            echo "Error en conexión: " . $exception->getMessage();
+class Database {
+    private static $pdo;
+
+    public static function getConnection() {
+        if (!self::$pdo) {
+            $config = require __DIR__ . '/db.php';
+            $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
+
+            try {
+                self::$pdo = new PDO($dsn, $config['user'], $config['password']);
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Error de conexión: " . $e->getMessage());
+            }
         }
 
-        return $this->conn;
+        return self::$pdo;
     }
 }
