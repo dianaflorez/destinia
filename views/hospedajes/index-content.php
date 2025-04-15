@@ -1,10 +1,11 @@
 
 <div class="row">
     <div class="col s12">
-        <h1>HOSPEDAJE</h1>
+        <h2><?php echo __('accommodation'); ?></h2>
         <div class="input-field">
             <input type="text" id="autocomplete-input" class="autocomplete">
-            <label for="autocomplete-input">Busca aquí tu Hospedaje</label>
+            <label for="autocomplete-input"><?php echo __('search_accommodation'); ?></label>
+
         </div>
     </div>
 </div>

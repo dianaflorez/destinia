@@ -10,7 +10,17 @@
     <header class="page-header">
         <nav class="light-blue lighten-1" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="#" class="brand-logo">Buscador de Hospedajes</a>
+                <a id="logo-container" href="#" class="brand-logo">
+                    <?php echo __('accommodation_finder'); ?>
+                </a>
+                <div class="right" style="display: flex; gap: 10px; align-items: center;">
+                <a href="?lang=es" title="Español">🇪🇸</a>
+                <a href="?lang=en" title="English">🇺🇸</a>
+                <a href="?lang=fr" title="Français">🇫🇷</a>
+                <a href="?lang=zh" title="中文">🇨🇳</a>
+                <a href="?lang=ar" title="العربية">🇸🇦</a>
+                </div>
+
             </div>
         </nav>
     </header>
@@ -28,5 +38,6 @@
     </footer>
 
     <script src="js/materialize.min.js"></script>
+    
 </body>
 </html>

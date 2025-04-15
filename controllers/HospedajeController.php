@@ -32,6 +32,13 @@ class HospedajeController
         $hospedajes = $this->hospedaje->findHospedajesByPrefix($prefix);
         $results = [];
 
+        if (isset($_SESSION['lang'])) {
+            $lan = $_SESSION['lang'];
+        }else{
+            $_SESSION['lang'] = 'es'; // idioma por defecto
+            $lan = 'es';
+        }
+
         foreach ($hospedajes as $hospedaje) {
             $city = $this->city->getCityName($hospedaje['city_id']);
             $province = $this->province->getProvinceName($city['province_id']);

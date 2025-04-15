@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+if (isset($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+} elseif (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'es'; // idioma por defecto
+}
+require_once __DIR__ . '/../helpers/translation.php';
+
+
 $controllerName = isset($_GET['controller']) ? ucfirst($_GET['controller']) . 'Controller' : 'HospedajeController';
 $action = $_GET['action'] ?? 'index';
 
